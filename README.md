@@ -15,19 +15,31 @@ $ tsc
 ````
 $ npm start
 ````
-
+---
 ## Output
+
 Expected window:
+
 ![alt text](doc/expected_win.png "Expected Window")
 ---
-## Starting from zero
-1 How to generate the package.json
-````
-$ npm init
-$ sudo npm install electron --unsafe-perm=true -g
-````
+## How to
 
-2 How to generate the tsconfig.json
-````
-$ tsc --init
-````
+1 Generate the package.json
+
+`$ npm init `
+
+2 Generate the tsconfig.json
+
+`$ tsc --init`
+
+3 Install electron
+
+`$ npm install electron --save-dev`
+
+* Or globally:
+
+`$ npm install electron -g`
+
+* If `EACCESS` error:
+
+`$ sudo npm install electron --unsafe-perm=true -g`
