@@ -1,0 +1,11 @@
+# Created by .ignore support plugin (hsz.mobi)
+.gitignore
+.idea
+.nuget
+node_modules
+tests
+coverage
+documentation
+.npmignore
+tsconfig.json
+dist
