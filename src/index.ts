@@ -7,15 +7,16 @@ let window2;
 
 app.on('ready', () => {
     window1 = new BrowserWindow({
-        width: 600,
-        height: 480,
+        width: 480,
+        height: 600,
         darkTheme: true,
         backgroundColor: '#A9F5F2',
+        frame: false,
         webPreferences:{
             nodeIntegration:true
         }
     });
-    window1.loadFile('../renderers/nm_calc.html');
+    window1.loadFile('../renderers/calculator.html');
 
     // window2 = new BrowserWindow({
     //     width: 600,

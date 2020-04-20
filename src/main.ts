@@ -17,6 +17,6 @@ if (newWinButton) {
             }*/
         });
 
-        window3.loadFile('../renderers/nm_calc.html');
+        window3.loadFile('../renderers/subwindow.html');
     });
 }
