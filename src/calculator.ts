@@ -48,6 +48,10 @@ for (let operation of operations) {
         console.log('clicked:', opMap.get(operation));
         display.value += opMap.get(operation);
         resoperation = operation;
+        if(operation == 'percent'){
+            percent();
+            // equal.clicked;
+        }
     });
 }
 
