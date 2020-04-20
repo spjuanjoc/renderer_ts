@@ -1,5 +1,5 @@
 {
-  "name": "hello_electron_ts",
+  "name": "renderer_ts",
   "version": "1.0.0",
   "description": "npm init npm install --save-dev electron tsc --init",
   "main": "index.js",
