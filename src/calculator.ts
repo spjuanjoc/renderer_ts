@@ -6,8 +6,10 @@ let numbers = document.querySelectorAll(".num__key");
 const equal = document.querySelector(".eq__key");
 const clear = document.querySelector(".op__key[op=clear]");
 
-let result = "result";
-const buffer:string[] = [];
+let result = "";
+let numResult:number = 0;
+let buffer:number[] = [];
+let resoperation:string;
 
 const operations =['add','subtract','multiply','divide','percent'];
 let opMap = new Map<string,string>();
@@ -29,10 +31,13 @@ callbacksMap.set('negate', ()=> {negate();});
 if(numbers){
     numbers.forEach(numberButton => {
         numberButton.addEventListener('click',() => {
+            let currentValue = parseFloat(numberButton.textContent);
+            console.log('clicked:',currentValue);
+
             display.value = display.value !== "0" ?
                 display.value + numberButton.textContent : numberButton.textContent;
-            let currentValue = parseFloat(display.value);
-            buffer.push(display.value);
+
+            buffer.push(currentValue);
         });
     });
 }
@@ -42,14 +47,21 @@ for (let operation of operations){
     let operator = document.querySelector(`.op__key[op=${operation}]`);
     operator.addEventListener('click', () => {
         buffer.push()
-        console.log('clicked:', operation, ' for: ', display.value);
+        console.log('clicked:', opMap.get(operation));
         display.value += opMap.get(operation);
-        callbacksMap.get(operation)();
+        // callbacksMap.get(operation)();
+        resoperation = operation;
     });
 }
 
 equal.addEventListener('click', () => {
-    display.value = result;
+    if (resoperation) {
+        callbacksMap.get(resoperation)();
+    }
+    display.value = numResult.toString();
+    buffer = [];
+    buffer.push(numResult);
+    numResult = 0;
 });
 
 clear.addEventListener('click', () => {
@@ -59,7 +71,14 @@ clear.addEventListener('click', () => {
 //Math functions
 function add(){
     console.log('add!!');
-    result = 'add!!';
+    console.log('length:',buffer.length);
+    if(buffer.length >= 1){
+        for (let num of buffer) {
+            numResult += +num;
+            buffer = [];
+        }
+    }
+    console.log('add result:',numResult);
 }
 function subtract(){
     console.log('subtract!!');
