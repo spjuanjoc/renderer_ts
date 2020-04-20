@@ -2,38 +2,36 @@ console.log('Neumorphic calculator');
 
 let display = document.querySelector("input");
 let numbers = document.querySelectorAll(".num__key");
-// let operators = document.querySelector(`.op__key`);
 const equal = document.querySelector(".eq__key");
 const clear = document.querySelector(".op__key[op=clear]");
 
 let result = "";
-let numResult:number = 0;
-let buffer:number[] = [];
-let resoperation:string;
+let numResult: number = 0;
+let buffer: number[] = [];
+let resoperation: string;
 
-const operations =['add','subtract','multiply','divide','percent'];
-let opMap = new Map<string,string>();
-opMap.set('add','+');
-opMap.set('subtract','-');
-opMap.set('multiply','x');
-opMap.set('divide','/');
-opMap.set('percent','');
-opMap.set('negate','--');
+const operations = ['add', 'subtract', 'multiply', 'divide', 'percent'];
+let opMap = new Map<string, string>();
+opMap.set('add', '+');
+opMap.set('subtract', '-');
+opMap.set('multiply', 'x');
+opMap.set('divide', '/');
+opMap.set('percent', '');
+opMap.set('negate', '--');
 
-let callbacksMap = new Map<string,()=>void >();
-callbacksMap.set('add',()=>{ add(); });
-callbacksMap.set('subtract', ()=> {subtract();});
-callbacksMap.set('multiply', ()=> {multiply();});
-callbacksMap.set('divide', ()=> {divide();});
-callbacksMap.set('percent',()=> {percent();});
-callbacksMap.set('negate', ()=> {negate();});
+let callbacksMap = new Map<string, () => void>();
+callbacksMap.set('add', () => { add(); });
+callbacksMap.set('subtract', () => { subtract(); });
+callbacksMap.set('multiply', () => { multiply(); });
+callbacksMap.set('divide', () => { divide(); });
+callbacksMap.set('percent', () => { percent(); });
+callbacksMap.set('negate', () => { negate(); });
 
-if(numbers){
+if (numbers) {
     numbers.forEach(numberButton => {
-        numberButton.addEventListener('click',() => {
+        numberButton.addEventListener('click', () => {
             let currentValue = parseFloat(numberButton.textContent);
-            console.log('clicked:',currentValue);
-
+            console.log('clicked:', currentValue);
             display.value = display.value !== "0" ?
                 display.value + numberButton.textContent : numberButton.textContent;
 
@@ -42,7 +40,7 @@ if(numbers){
     });
 }
 
-for (let operation of operations){
+for (let operation of operations) {
     console.log('operations');
     let operator = document.querySelector(`.op__key[op=${operation}]`);
     operator.addEventListener('click', () => {
@@ -59,7 +57,9 @@ equal.addEventListener('click', () => {
     }
     display.value = numResult.toString();
     buffer = [];
-    buffer.push(numResult);
+    if(numResult != 0) {
+        buffer.push(numResult);
+    }
     numResult = 0;
 });
 
@@ -70,29 +70,38 @@ clear.addEventListener('click', () => {
 });
 
 //Math functions
-function add(){
+function add() {
     console.log('add!!');
-    console.log('length:',buffer.length);
-    if(buffer.length >= 1){
+    if (buffer.length >= 1) {
         for (let num of buffer) {
             numResult += +num;
-            buffer = [];
         }
+        buffer = [];
     }
-    console.log('add result:',numResult);
 }
-function subtract(){
+
+function subtract() {
     console.log('subtract!!');
-    result = 'subtract!!';
+    if (buffer.length > 1) {
+        let tmp = buffer.splice(0,1);
+        numResult = tmp.pop();
+        for (let num of buffer) {
+            numResult -= +num;
+        }
+        buffer = [];
+    }
 }
-function multiply(){
+
+function multiply() {
     console.log('multiply!!');
     result = 'multiply!!';
 }
-function divide(){
+
+function divide() {
     console.log('divide!!');
     result = 'divide!!';
 }
+
 function percent() {
     console.log('percent!!')
     result = 'percent!!'
@@ -101,7 +110,8 @@ function percent() {
     display.value = currentValue.toString();
     console.log('percent operation called: ', currentValue, display.value);
 }
-function negate(){
+
+function negate() {
     console.log('negate!!');
     result = 'negate!!';
 }
