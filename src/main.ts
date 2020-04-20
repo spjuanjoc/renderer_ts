@@ -11,12 +11,12 @@ if (newWinButton) {
             width: 600,
             height: 480,
             darkTheme: true,
-            backgroundColor: '#AAA'/*,
+            /*backgroundColor: '#AAA'*//*,
             webPreferences:{
                 nodeIntegration:true
             }*/
         });
 
-        window3.loadFile('../renderers/second.html');
+        window3.loadFile('../renderers/nm_calc.html');
     });
 }
