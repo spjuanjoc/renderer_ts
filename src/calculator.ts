@@ -49,7 +49,6 @@ for (let operation of operations){
         buffer.push()
         console.log('clicked:', opMap.get(operation));
         display.value += opMap.get(operation);
-        // callbacksMap.get(operation)();
         resoperation = operation;
     });
 }
@@ -66,7 +65,9 @@ equal.addEventListener('click', () => {
 
 clear.addEventListener('click', () => {
     display.value = "0";
-})
+    buffer = [];
+    numResult = 0;
+});
 
 //Math functions
 function add(){
