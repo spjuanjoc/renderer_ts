@@ -26,6 +26,13 @@ opMap.set('divide','/');
 opMap.set('percent','');
 opMap.set('negate','--');
 
+let callbacksMap = new Map<string,()=>void >();
+callbacksMap.set('add',()=>{ add(); });
+
+function add(){
+    console.log('add!!');
+}
+
 for (let operation of operations){
     console.log('operations');
     let operator = document.querySelector(`.op__key[op=${operation}]`);
@@ -33,6 +40,7 @@ for (let operation of operations){
         operate(operation);
         console.log('clicked: ', operation, ' for: ', display.value);
         display.value += opMap.get(operation);
+        callbacksMap.get(operation)();
         // operator();
     });
 }
@@ -67,11 +75,9 @@ function evaluate(op:string):string{
     return "";
 }
 
-function add(lhs:number, rhs:number):number{
-    return lhs + rhs;
-}
-
-
+// function add(lhs:number, rhs:number):number{
+//     return lhs + rhs;
+// }
 
 
 equal.addEventListener('click', () => {
