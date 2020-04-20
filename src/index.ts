@@ -10,20 +10,20 @@ app.on('ready', () => {
         width: 600,
         height: 480,
         darkTheme: true,
-        backgroundColor: '#A9F5F2'/*,
+        backgroundColor: '#A9F5F2',
         webPreferences:{
             nodeIntegration:true
-        }*/
+        }
     });
     window1.loadFile('../renderers/main.html');
 
-    window2 = new BrowserWindow({
-        width: 600,
-        height: 480,
-        darkTheme: true,
-        backgroundColor: '#FFF'
-    });
-    window2.loadFile('../renderers/second.html');
+    // window2 = new BrowserWindow({
+    //     width: 600,
+    //     height: 480,
+    //     darkTheme: true,
+    //     backgroundColor: '#FFF'
+    // });
+    // window2.loadFile('../renderers/second.html');
 });
 
 app.on('window-all-closed', () => {
