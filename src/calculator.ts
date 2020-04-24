@@ -5,20 +5,19 @@ let numbers = document.querySelectorAll(".num__key");
 const equal = document.querySelector(".eq__key");
 const clear = document.querySelector(".op__key[op=clear]");
 
-let result = "";
 let numResult: number = 0;
 let numBuffer: number[] = [];
-let opBuffer: Function[] = [];
+let opBuffer: Function[] = []; // todo allow multi operation inline
 let resoperation: string;
 
-const operations = ['add', 'subtract', 'multiply', 'divide', 'percent'];
+const operations = ['add', 'subtract', 'multiply', 'divide', 'percent','negate'];
 let opMap = new Map<string, string>();
 opMap.set('add', '+');
 opMap.set('subtract', '-');
 opMap.set('multiply', 'x');
 opMap.set('divide', '/');
 opMap.set('percent', '');
-opMap.set('negate', '--');
+opMap.set('negate', '+/-');
 
 let callbacksMap = new Map<string, Function>();
 callbacksMap.set('add', add);
@@ -52,8 +51,12 @@ for (let operation of operations) {
         display.value += opSymbol;
         opBuffer.push(opCallback);
         resoperation = operation;
+
         if(operation == 'percent'){
             percent();
+        }
+        if(operation == 'negate'){
+            negate();
         }
     });
 }
@@ -79,19 +82,15 @@ clear.addEventListener('click', () => {
 
 //Math functions
 function add() {
-    console.log('add!!');
     if (numBuffer.length >= 1) {
-        console.log(">",numBuffer);
         for (let num of numBuffer) {
             numResult += +num;
         }
         numBuffer = [];
-        console.log("empty",numBuffer);
     }
 }
 
 function subtract() {
-    console.log('subtract!!');
     if (numBuffer.length > 1) {
         console.log(numBuffer);
         let tmp = numBuffer.splice(0, 1);
@@ -104,25 +103,36 @@ function subtract() {
 }
 
 function multiply() {
-    console.log('multiply!!');
-    result = 'multiply!!';
+    if (numBuffer.length >= 1) {
+        numResult = 1;
+        for (let num of numBuffer) {
+            numResult *= +num;
+        }
+        numBuffer = [];
+    }
 }
 
 function divide() {
-    console.log('divide!!');
-    result = 'divide!!';
+    if (numBuffer.length > 1) {
+        console.log(numBuffer);
+        let tmp = numBuffer.splice(0, 1);
+        numResult = tmp.pop();
+        for (let num of numBuffer) {
+            if (num > 0){
+                numResult /= +num;
+            }
+        }
+        numBuffer = [];
+    }
 }
 
 function percent() {
-    console.log('percent!!')
-    result = 'percent!!'
     let currentValue = parseFloat(display.value);
     currentValue *= 0.01;
     display.value = currentValue.toString();
-    console.log('percent operation called: ', currentValue, display.value);
 }
 
 function negate() {
-    console.log('negate!!');
-    result = 'negate!!';
+    let currentValue = -parseFloat(display.value);
+    display.value = currentValue.toString();
 }
