@@ -19,13 +19,13 @@ opMap.set('divide', '/');
 opMap.set('percent', '');
 opMap.set('negate', '--');
 
-let callbacksMap = new Map<string, () => void>();
-callbacksMap.set('add', () => { add(); });
-callbacksMap.set('subtract', () => { subtract(); });
-callbacksMap.set('multiply', () => { multiply(); });
-callbacksMap.set('divide', () => { divide(); });
-callbacksMap.set('percent', () => { percent(); });
-callbacksMap.set('negate', () => { negate(); });
+let callbacksMap = new Map<string, Function>();
+callbacksMap.set('add', add);
+callbacksMap.set('subtract', subtract);
+callbacksMap.set('multiply', multiply);
+callbacksMap.set('divide', divide);
+callbacksMap.set('percent', percent);
+callbacksMap.set('negate', negate);
 
 if (numbers) {
     numbers.forEach(numberButton => {
@@ -50,7 +50,6 @@ for (let operation of operations) {
         resoperation = operation;
         if(operation == 'percent'){
             percent();
-            // equal.clicked;
         }
     });
 }
@@ -61,7 +60,7 @@ equal.addEventListener('click', () => {
     }
     display.value = numResult.toString();
     buffer = [];
-    if(numResult != 0) {
+    if (numResult != 0) {
         buffer.push(numResult);
     }
     numResult = 0;
@@ -87,7 +86,8 @@ function add() {
 function subtract() {
     console.log('subtract!!');
     if (buffer.length > 1) {
-        let tmp = buffer.splice(0,1);
+        console.log(buffer);
+        let tmp = buffer.splice(0, 1);
         numResult = tmp.pop();
         for (let num of buffer) {
             numResult -= +num;

@@ -11,7 +11,7 @@ app.on('ready', () => {
         height: 600,
         darkTheme: true,
         backgroundColor: '#A9F5F2',
-        frame: false,
+        // frame: false,
         webPreferences:{
             nodeIntegration:true
         }
